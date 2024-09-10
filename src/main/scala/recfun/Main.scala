@@ -18,9 +18,9 @@ object Main {
    * Exercise 1
    */
   def pascal(c: Int, r: Int): Int = {
-    if(c == 0) 1
-    else if(c == r) 1
-    else pascal(c - 1, r - 1) + pascal(c, r -1)
+    if(c == 0) 1 //leftmost
+    else if(c == r) 1 //rightmost
+    else pascal(c - 1, r - 1) + pascal(c, r -1) //recurrence relation
   }
 
   /**
@@ -28,15 +28,15 @@ object Main {
    */
   def balance(chars: List[Char]): Boolean = {
 
-    def se(chars: List[Char],cnt: Int): Boolean = {
-      if(cnt < 0) false
+    def se(chars: List[Char],cnt: Int): Boolean = { //to send cnt parameter
+      if(cnt < 0) false //if ) goes first
 
-      else if(chars.isEmpty && cnt == 0) true
-      else if(chars.isEmpty && cnt != 0) false
+      else if(chars.isEmpty && cnt == 0) true //if searched all and balanced
+      else if(chars.isEmpty && cnt != 0) false //if searched all but unbalanced
 
-      else if(chars.head == '(') se(chars.tail,cnt+1)
-      else if(chars.head == ')') se(chars.tail,cnt-1)
-      else se(chars.tail, cnt)
+      else if(chars.head == '(') se(chars.tail,cnt+1) //counts increase if (
+      else if(chars.head == ')') se(chars.tail,cnt-1) //counts decrease if )
+      else se(chars.tail, cnt) //if not parentheses, skip
 
     }
     se(chars,0)
@@ -47,8 +47,8 @@ object Main {
    */
   def countChange(money: Int, coins: List[Int]): Int = {
     if (money == 0) 1
-    else if (money < 0 || coins.isEmpty) 0
-    else countChange(money - coins.head, coins) + countChange(money, coins.tail)
+    else if (money < 0 || coins.isEmpty) 0 //if money is not divided or coins are empty
+    else countChange(money - coins.head, coins) + countChange(money, coins.tail) //take head's coin or take next coin
   }
 
 }
